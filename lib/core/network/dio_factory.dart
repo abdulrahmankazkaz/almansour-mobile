@@ -55,17 +55,13 @@ class DioFactory {
     );
     // dio.interceptors.add(RefreshTokenInterceptor());
     dio.interceptors.add(GeneralInterceptor());
-    if (kReleaseMode) {
-      if (kDebugMode) {
-        print('release mode no logs');
-      }
-    } else {
-      dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        responseHeader: false,
-        requestBody: true,
-        request: true,
-        responseBody: true,
+    if (!kReleaseMode) {
+        dio.interceptors.add(PrettyDioLogger(
+            requestHeader: true,
+            responseHeader: false,
+            requestBody: true,
+            request: true,
+            responseBody: true,
       ));
       // dio.interceptors.add(CurlLoggerDioInterceptor(
       //   convertFormData: true,

@@ -78,24 +78,24 @@ class NotificationService {
         await _subscribeBasedOnLanguage(appLanguage);
 
         await _messaging
-            .subscribeToTopic('notifications')
-            .then((value) => print('Subscribed to notifications successfully'))
-            .catchError((e) => print('error $e'));
+            .subscribeToTopic('notifications');
+            // .then((value) => print('Subscribed to notifications successfully'))
+            // .catchError((e) => print('error $e'));
         await _messaging
-            .subscribeToTopic('t')
-            .then((value) => print('Subscribed to t successfully'))
-            .catchError((e) => print('error $e'));
+            .subscribeToTopic('t');
+            // .then((value) => print('Subscribed to t successfully'))
+            // .catchError((e) => print('error $e'));
       }
     } else {
       await _subscribeBasedOnLanguage(appLanguage);
       await _messaging
-          .subscribeToTopic('notifications')
-          .then((value) => print('Subscribed to notifications successfully'))
-          .catchError((e) => print('error $e'));
+          .subscribeToTopic('notifications');
+        //   .then((value) => print('Subscribed to notifications successfully'))
+        //   .catchError((e) => print('error $e'));
       await _messaging
-          .subscribeToTopic('t')
-          .then((value) => print('Subscribed to t successfully'))
-          .catchError((e) => print('error $e'));
+          .subscribeToTopic('t');
+        //   .then((value) => print('Subscribed to t successfully'))
+        //   .catchError((e) => print('error $e'));
     }
   }
 
@@ -121,7 +121,7 @@ class NotificationService {
         await subscribeToEnglishTopic();
         await unsubscribeToArabicTopic();
       }
-      print('Subscribed to topics successfully');
+    //   print('Subscribed to topics successfully');
       LoggerService().logDebug(message: 'Subscribed to topics successfully');
     } catch (e) {
       LoggerService().logCatchDebug(message: e.toString());
@@ -161,7 +161,7 @@ class NotificationService {
       LoggerService().logDebug(
           message:
               'Got a message whilst in the foreground! ${message.toMap()}');
-      print('Got a message whilst in the foreground! ${message.toMap()}');
+    //   print('Got a message whilst in the foreground! ${message.toMap()}');
       if (message.data.isNotEmpty) {
         print('Message contained data: ${message.data.toString()}');
         switch (message.data['type_id']) {

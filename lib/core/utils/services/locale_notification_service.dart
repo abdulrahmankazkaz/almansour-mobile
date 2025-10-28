@@ -47,20 +47,19 @@ class LocaleNotificationService {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileName';
-      print('Downloading image to: $filePath');
+    //   print('Downloading image to: $filePath');
       LoggerService().logDebug(message: 'Downloading image to: $filePath');
 
       final response = await Dio().download(url, filePath);
 
       if (response.statusCode == 200) {
-        print('Image downloaded successfully: $filePath');
+        // print('Image downloaded successfully: $filePath');
         LoggerService()
             .logDebug(message: 'Image downloaded successfully: $filePath');
         return filePath;
       }
     } catch (e) {
-      print('Error downloading image:: $e');
-
+    //   print('Error downloading image:: $e');
       LoggerService().logCatchDebug(message: 'Error downloading image: $e');
     }
     return null;
