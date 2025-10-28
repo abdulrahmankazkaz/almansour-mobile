@@ -1,0 +1,2 @@
+/Users/rafah/StudioProjects/mac_mobile/android/app/.cxx/RelWithDebInfo/23x4b5r6/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/rafah/StudioProjects/mac_mobile/android/app/.cxx/RelWithDebInfo/23x4b5r6/armeabi-v7a/CMakeFiles/rebuild_cache.dir

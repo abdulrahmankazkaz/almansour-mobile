@@ -1,0 +1,4 @@
+bricks:
+  flutter_bloc_feature: ^0.3.0
+  arch:
+    path: bricks/arch
