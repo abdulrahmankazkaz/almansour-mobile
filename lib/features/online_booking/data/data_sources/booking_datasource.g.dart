@@ -10,7 +10,7 @@ part of 'booking_datasource.dart';
 
 class _BookingDatasource implements BookingDatasource {
   _BookingDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://mac-dev.nano-idea.com';
+    baseUrl ??= 'https://api.mac-iq.net';
   }
 
   final Dio _dio;

@@ -8,6 +8,7 @@ import 'package:mac_mobile/features/profile/entities/no_params.dart';
 import 'package:mac_mobile/features/profile/entities/user.dart';
 
 import '../../../../app/dependency_injection.dart';
+import '../../../../core/network/response_status_code.dart';
 import '../../../../core/utils/local_storage/app_preferences.dart';
 import '../../domain/usecases/login_use_case.dart';
 import '../../domain/usecases/logout_use_case.dart';
@@ -46,7 +47,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await _appPreferences.userPreferences.setNeedToVerifyUser();
         emit(const AuthState.loggedInSuccess());
       });
-      result.whenError((error) => emit(AuthState.failed(error.message)));
+      result.whenError((error) {
+        if(error.code == ResponseStatusCode.oldVersion.value){
+          emit(AuthState.initial());
+        }
+        else {
+          emit(AuthState.failed(error.message));
+        }
+      });
     } catch (e) {
       emit(AuthState.failed(e.toString()));
     }
@@ -82,7 +90,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         LoggerService().logDebug(message: _appPreferences.userPreferences.isUserLoggedIn().toString());
 
       });
-      result.whenError((error) => emit(AuthState.failed(error.message)));
+      result.whenError((error) {
+        emit(AuthState.failed(error.message));
+      });
     } catch (e) {
       emit(AuthState.failed(e.toString()));
     }

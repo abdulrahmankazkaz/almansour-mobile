@@ -10,7 +10,7 @@ part of 'customer_car_datasource.dart';
 
 class _CustomerCarDatasource implements CustomerCarDatasource {
   _CustomerCarDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://mac-dev.nano-idea.com';
+    baseUrl ??= 'https://api.mac-iq.net';
   }
 
   final Dio _dio;

@@ -74,6 +74,7 @@ class Assets {
   static const String lottieRejectedCar = 'assets/lottie/rejected_car.json';
   static const String lottieSadFace = 'assets/lottie/sad_face.json';
   static const String lottieStarFeedback = 'assets/lottie/star-feedback.json';
+  static const String lottieUpdate = 'assets/lottie/update.json';
   static const String translationsAr = 'assets/translations/ar.json';
   static const String translationsEn = 'assets/translations/en.json';
   static const String videoSplashVideo = 'assets/video/splash_video.mp4';

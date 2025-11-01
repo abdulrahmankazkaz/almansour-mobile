@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../constants/constant.dart';
 import '../utils/helpers/helper.dart';
 import '../utils/local_storage/app_preferences.dart';
+import 'firebase_performance_interceptor.dart';
 import 'general_dio_interceptor.dart';
 
 class DioHeaders {
@@ -55,6 +56,7 @@ class DioFactory {
     );
     // dio.interceptors.add(RefreshTokenInterceptor());
     dio.interceptors.add(GeneralInterceptor());
+    dio.interceptors.add(FirebasePerformanceInterceptor());
     if (!kReleaseMode) {
         dio.interceptors.add(PrettyDioLogger(
             requestHeader: true,

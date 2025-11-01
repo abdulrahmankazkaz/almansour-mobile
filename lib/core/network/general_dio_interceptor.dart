@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mac_mobile/core/network/dio_factory.dart';
 import 'package:mac_mobile/core/utils/helpers/logger_helper.dart';
 
 import '../../app/dependency_injection.dart';
+import '../../generated/assets.dart';
 import '../../generated/locale_keys.g.dart';
 import '../network/response_status_code.dart';
 import '../utils/helpers/helper.dart';
@@ -63,25 +66,37 @@ class GeneralInterceptor extends Interceptor {
         showDialog(
             barrierDismissible: false,
             context: rootNavigatorKey.currentContext!,
-            builder: (_) => Dialog(
-                  insetPadding: EdgeInsets.symmetric(
-                      vertical: AppSizeH.s290, horizontal: AppSizeW.s50),
-                  child: Center(
+            builder: (_) => PopScope(
+                  canPop: false,
+                  child: Dialog(
+                    insetPadding: EdgeInsets.symmetric(
+                        vertical: AppSizeH.s273, horizontal: AppSizeW.s50),
+                    child: Center(
+                        child: Padding(
+                      padding: EdgeInsets.all(AppSizeW.s20),
                       child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(LocaleKeys.newVersion.tr()),
-                      ElevatedButton(
-                          onPressed: () {
-                            if(Platform.isIOS){
-                              Helper.instance.routerHelper.openLinkWithBrowser('https://apps.apple.com/iq/app/almansour-iraq/id6479215851');
-                            }
-                            else if (Platform.isAndroid){
-                              Helper.instance.routerHelper.openLinkWithBrowser('https://play.google.com/store/apps/details?id=com.provision.com.maccar');
-                            }
-                          }, child: Text(LocaleKeys.update.tr()))
-                    ],
-                  )),
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Lottie.asset(Assets.lottieUpdate,
+                              height: AppSizeH.s80, fit: BoxFit.fitHeight),
+                          SizedBox(height: AppSizeH.s10),
+                          Text(LocaleKeys.newVersion.tr()),
+                          SizedBox(height: AppSizeH.s80),
+                          ElevatedButton(
+                              onPressed: () {
+                                if (Platform.isIOS) {
+                                  Helper.instance.routerHelper.openLinkWithBrowser(
+                                      'https://apps.apple.com/iq/app/almansour-iraq/id6479215851');
+                                } else if (Platform.isAndroid) {
+                                  Helper.instance.routerHelper.openLinkWithBrowser(
+                                      'https://play.google.com/store/apps/details?id=com.provision.com.maccar');
+                                }
+                              },
+                              child: Text(LocaleKeys.update.tr()))
+                        ],
+                      ),
+                    )),
+                  ),
                 ));
       }
     } catch (e) {}
