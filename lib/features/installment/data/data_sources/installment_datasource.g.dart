@@ -10,7 +10,7 @@ part of 'installment_datasource.dart';
 
 class _InstallmentDatasource implements InstallmentDatasource {
   _InstallmentDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

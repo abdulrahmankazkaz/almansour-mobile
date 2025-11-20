@@ -10,7 +10,7 @@ part of 'quick_service_datasource.dart';
 
 class _QuickServiceDatasource implements QuickServiceDatasource {
   _QuickServiceDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

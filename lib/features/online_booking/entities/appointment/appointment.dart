@@ -22,6 +22,7 @@ class Appointment with _$Appointment {
     @JsonKey(name: 'payment_method')  BasicModel? paymentMethod,
     @JsonKey(name: 'dealership') @Default(Dealership()) Dealership dealership,
     @JsonKey(name: 'image') @Default('') String image,
+    @JsonKey(name: 'reject_message') @Default('') String? rejectMessage,
     @JsonKey(name: 'totals') required  OrderDetailsTotal totals,
     @JsonKey(name: 'service_offer')  ServiceOffer? serviceOffer,
   }) = _Appointment;

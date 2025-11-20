@@ -74,7 +74,7 @@ class _BookedQuickServicePageState extends State<BookedQuickServicePage> {
                      name: LocaleKeys.quickService_quickService.tr(),
                      status: quickServices[index].status,
                      price: '',
-                     onRateTap: quickServices[index].status.id == 2 &&
+                     onRateTap: quickServices[index].status.id == 4 &&
                          !quickServices[index].isRated
                          ? () {
                        SurveyTypeParameters param =

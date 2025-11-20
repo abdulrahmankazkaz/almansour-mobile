@@ -30,6 +30,7 @@ class AppointmentDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -50,8 +51,7 @@ class AppointmentDetailsView extends StatelessWidget {
                 builder: (context, state) {
                   return state.maybeWhen(
                       loading: () => const SmallCircularIndicator(),
-                      appointmentSelected: (appointment) =>
-                          SingleChildScrollView(
+                      appointmentSelected: (appointment) => SingleChildScrollView(
                               child: Column(children: [
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,6 +228,28 @@ class AppointmentDetailsView extends StatelessWidget {
                                   ),
 
                                 ]),
+                            if(appointment.rejectMessage?.isNotEmpty??false)
+                                ...{
+                                SizedBox(height: AppSizeH.s20),
+                                CardContainer(
+                                    width: MediaQuery.sizeOf(context).width,
+                                    child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(Icons.cancel_outlined,color: ColorManager.error),
+                                        SizedBox(width: AppSizeW.s2),
+                                        Text(LocaleKeys.onlineBooking_rejectMessage.tr(),style:Theme.of(context).textTheme.headlineMedium),
+                                      ],
+                                    ),
+                                    SizedBox(height: AppSizeH.s10),
+                                    Text(appointment.rejectMessage??'',style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge)
+                                  ],
+
+                                )),},
                             if (appointment.totals.total != 0) ...{
                               SizedBox(height: AppSizeH.s20),
                               OrderTotalsDetailsWidget(

@@ -116,6 +116,7 @@
     "pay": "Pay",
     "accept": "Accept",
     "reject": "Reject",
+    "rejectMessage": "Reject Message",
     "chooseServiceOffer": "Choose a service offer to book",
     "chooseBookingTime": "Please choose a booking time",
     "appointmentNotFound": "Appointment not found",

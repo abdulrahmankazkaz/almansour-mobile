@@ -81,7 +81,7 @@ class PromotionListWidget extends StatelessWidget {
             },
             child: Container(
               width: MediaQuery.sizeOf(context).width,
-              height: MediaQuery.sizeOf(context).height * 0.15,
+              height: MediaQuery.sizeOf(context).height * 0.12,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSizeR.s15),
                 boxShadow: [
@@ -123,10 +123,10 @@ class PromotionListWidget extends StatelessWidget {
                         children: [
                           Text(promotions[index].title,
                               style: Theme.of(context).textTheme.headlineSmall),
-                          Flexible(
-                              child: Text(promotions[index].description,
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium))
+                          // Flexible(
+                          //     child: Text(promotions[index].description,
+                          //         style:
+                          //             Theme.of(context).textTheme.bodyMedium))
                         ]),
                   ),
                 )

@@ -153,8 +153,10 @@ class OrderDetailsWidget extends StatelessWidget {
                           AppointmentStatusWidget(status: status),
                         if(orderType == OrderType.sparePart)
                           OrderStatusWidget(status: status),
-                        if(orderType == OrderType.mobileService || orderType == OrderType.quickService)
-                          MobileServiceStatusWidget(status: status)
+                        if(orderType == OrderType.mobileService)
+                          MobileServiceStatusWidget(status: status),
+                        if(orderType == OrderType.quickService)
+                          QuickServiceStatusWidget(status: status)
 
                         }
                     ],
@@ -358,6 +360,53 @@ class MobileServiceStatusWidget extends StatelessWidget {
       case 3: // CANCELED
         return Colors.red;
       case 2: // APPROVED
+        return Colors.green;
+      default:
+        return Colors.grey; // fallback color
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = _getStatusColor(status?.id);
+
+    return Container(
+      width: MediaQuery.sizeOf(context).width * 0.2,
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        status?.name ?? '',
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+          color: color,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+
+class QuickServiceStatusWidget extends StatelessWidget {
+  const QuickServiceStatusWidget({
+    super.key,
+    required this.status,
+  });
+
+  final BasicModel? status;
+
+  Color _getStatusColor(int? id) {
+    switch (id) {
+      case 1:  // PENDING
+        return Colors.orange;
+      case 3: // CANCELED
+        return Colors.red;
+      case 2: // APPROVED
+        return Colors.orange;
+      case 4: // Done
         return Colors.green;
       default:
         return Colors.grey; // fallback color

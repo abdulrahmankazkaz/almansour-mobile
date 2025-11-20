@@ -10,7 +10,7 @@ part of 'main_datasource.dart';
 
 class _MainDatasource implements MainDatasource {
   _MainDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

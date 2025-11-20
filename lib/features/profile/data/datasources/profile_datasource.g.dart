@@ -10,7 +10,7 @@ part of 'profile_datasource.dart';
 
 class _ProfileDatasource implements ProfileDatasource {
   _ProfileDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

@@ -24,6 +24,7 @@ _$AppointmentImpl _$$AppointmentImplFromJson(Map<String, dynamic> json) =>
           ? const Dealership()
           : Dealership.fromJson(json['dealership'] as Map<String, dynamic>),
       image: json['image'] as String? ?? '',
+      rejectMessage: json['reject_message'] as String? ?? '',
       totals:
           OrderDetailsTotal.fromJson(json['totals'] as Map<String, dynamic>),
       serviceOffer: json['service_offer'] == null
@@ -44,6 +45,7 @@ Map<String, dynamic> _$$AppointmentImplToJson(_$AppointmentImpl instance) =>
       'payment_method': instance.paymentMethod,
       'dealership': instance.dealership,
       'image': instance.image,
+      'reject_message': instance.rejectMessage,
       'totals': instance.totals,
       'service_offer': instance.serviceOffer,
     };

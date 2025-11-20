@@ -10,7 +10,7 @@ part of 'service_offer_datasource.dart';
 
 class _ServiceOfferDatasource implements ServiceOfferDatasource {
   _ServiceOfferDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

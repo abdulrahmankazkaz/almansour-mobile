@@ -10,7 +10,7 @@ part of 'mobile_service_datasource.dart';
 
 class _MobileServiceDatasource implements MobileServiceDatasource {
   _MobileServiceDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

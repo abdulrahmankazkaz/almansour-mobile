@@ -10,7 +10,7 @@ part of 'spare_parts_datasource.dart';
 
 class _SparePartsDatasource implements SparePartsDatasource {
   _SparePartsDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

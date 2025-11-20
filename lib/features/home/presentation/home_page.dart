@@ -152,79 +152,152 @@ class _HomeViewState extends State<HomeView> {
                               bannerPromotionsLoaded: (bannerPromotions) =>
                                   bannerPromotions.isNotEmpty
                                       ? SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.2,
-                                          child: CarouselSlider.builder(
-                                              itemCount:
-                                                  bannerPromotions.length,
-                                              itemBuilder:
-                                                  (context, index, realIndex) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    context
-                                                        .read<
-                                                            PromotionDetailsBloc>()
-                                                        .add(PromotionDetailsEvent
-                                                            .setPromotionDetails(
-                                                                bannerPromotions[
-                                                                    index]));
-                                                    context.push(RoutesPaths
-                                                        .promotionDetails);
-                                                  },
-                                                  child: Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            vertical:
-                                                                AppSizeH.s10),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              AppSizeR.s15),
-                                                      color: Theme.of(context)
-                                                          .cardColor,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .shadowColor
-                                                              .withOpacity(0.1),
-                                                          spreadRadius: 3,
-                                                          blurRadius: 3,
-                                                        )
-                                                      ],
-                                                      // border: Border.all(
-                                                      //     color: ColorManager.secondaryColor)
-                                                    ),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              AppSizeR.s15),
-                                                      child: ImageWidget(
-                                                          url: bannerPromotions[
-                                                                          index]
-                                                                      .media
-                                                                      .bannerImage
-                                                                      ?.isNotEmpty ??
-                                                                  false
-                                                              ? bannerPromotions[
-                                                                      index]
-                                                                  .media
-                                                                  .bannerImage
-                                                              : '',
-                                                          fit: BoxFit.fill),
-                                                    ),
+                                    height: MediaQuery.sizeOf(context).height * 0.25, // just enough to fit the square + margin
+                                    child: LayoutBuilder(
+                                      builder: (context, constraints) {
+                                        const double viewportFraction = 0.7;
+                                        final double itemSize = constraints.maxWidth * viewportFraction;
+
+                                        return CarouselSlider.builder(
+                                          itemCount: bannerPromotions.length,
+                                          itemBuilder: (context, index, realIndex) {
+                                            return InkWell(
+                                              onTap: () {
+                                                context
+                                                    .read<PromotionDetailsBloc>()
+                                                    .add(
+                                                  PromotionDetailsEvent.setPromotionDetails(
+                                                    bannerPromotions[index],
                                                   ),
                                                 );
+                                                context.push(RoutesPaths.promotionDetails);
                                               },
-                                              options: CarouselOptions(
-                                                autoPlay: true,
-                                                height: AppSizeH.s200,
-                                                viewportFraction: 0.8,
-                                                enlargeCenterPage: true,
-                                                disableCenter: true,
-                                              )),
-                                        )
+                                              child: Center(
+                                                child: Container(
+                                                  width: itemSize,
+                                                  height: itemSize, // 🔥 square
+                                                  margin: EdgeInsets.symmetric(vertical: AppSizeH.s10),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(AppSizeR.s15),
+                                                    color: Theme.of(context).cardColor,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Theme.of(context)
+                                                            .shadowColor
+                                                            .withValues(alpha: 0.1),
+                                                        spreadRadius: 3,
+                                                        blurRadius: 3,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(AppSizeR.s15),
+                                                    child: ImageWidget(
+                                                      width: itemSize,
+                                                      url: bannerPromotions[index]
+                                                          .media
+                                                          .bannerImage
+                                                          ?.isNotEmpty ??
+                                                          false
+                                                          ? bannerPromotions[index].media.bannerImage
+                                                          : '',
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          options: CarouselOptions(
+                                            autoPlay: true,
+                                            height: itemSize,          // 👈 matches child height
+                                            viewportFraction: viewportFraction, // 👈 still shows next slides
+                                            enlargeCenterPage: true,
+                                            disableCenter: true,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+
+                                  // SizedBox(
+                                  //         height: MediaQuery.sizeOf(context)
+                                  //                 .height *
+                                  //             0.2,
+                                  //         child: CarouselSlider.builder(
+                                  //
+                                  //             itemCount:
+                                  //                 bannerPromotions.length,
+                                  //             itemBuilder:
+                                  //                 (context, index, realIndex) {
+                                  //               return InkWell(
+                                  //                 onTap: () {
+                                  //                   context
+                                  //                       .read<
+                                  //                           PromotionDetailsBloc>()
+                                  //                       .add(PromotionDetailsEvent
+                                  //                           .setPromotionDetails(
+                                  //                               bannerPromotions[
+                                  //                                   index]));
+                                  //                   context.push(RoutesPaths
+                                  //                       .promotionDetails);
+                                  //                 },
+                                  //                 child: Container(
+                                  //                   margin:
+                                  //                       EdgeInsets.symmetric(
+                                  //                           vertical:
+                                  //                               AppSizeH.s10),
+                                  //                   decoration: BoxDecoration(
+                                  //                     borderRadius:
+                                  //                         BorderRadius.circular(
+                                  //                             AppSizeR.s15),
+                                  //                     color: Theme.of(context)
+                                  //                         .cardColor,
+                                  //                     boxShadow: [
+                                  //                       BoxShadow(
+                                  //                         color: Theme.of(
+                                  //                                 context)
+                                  //                             .shadowColor
+                                  //                             .withValues(alpha: 0.1),
+                                  //                         spreadRadius: 3,
+                                  //                         blurRadius: 3,
+                                  //                       )
+                                  //                     ],
+                                  //                     // border: Border.all(
+                                  //                     //     color: ColorManager.secondaryColor)
+                                  //                   ),
+                                  //                   child: ClipRRect(
+                                  //                     borderRadius:
+                                  //                         BorderRadius.circular(
+                                  //                             AppSizeR.s15),
+                                  //                     child: ImageWidget(
+                                  //                         width: MediaQuery.sizeOf(context).height*0.2,
+                                  //
+                                  //                         url: bannerPromotions[
+                                  //                                         index]
+                                  //                                     .media
+                                  //                                     .bannerImage
+                                  //                                     ?.isNotEmpty ??
+                                  //                                 false
+                                  //                             ? bannerPromotions[
+                                  //                                     index]
+                                  //                                 .media
+                                  //                                 .bannerImage
+                                  //                             : '',
+                                  //                         fit: BoxFit.fill),
+                                  //                   ),
+                                  //                 ),
+                                  //               );
+                                  //             },
+                                  //             options: CarouselOptions(
+                                  //               autoPlay: true,
+                                  //               height: AppSizeH.s200,
+                                  //               viewportFraction: 0.8,
+                                  //               aspectRatio: 0.8,
+                                  //               enlargeCenterPage: true,
+                                  //               disableCenter: true,
+                                  //             )),
+                                  //       )
                                       : const SizedBox.shrink(),
                               orElse: () => SizedBox(
                                   height: MediaQuery.sizeOf(context).height *

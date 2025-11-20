@@ -10,7 +10,7 @@ part of 'marketing_datasource.dart';
 
 class _MarketingDatasource implements MarketingDatasource {
   _MarketingDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;

@@ -61,7 +61,6 @@ class CodegenLoader extends AssetLoader{
     "termsAndConditions": "Terms & Agreements",
     "checkForUpdate": "Check for updates",
     "app_settings": "App settings",
-    "emptyNotificationTitle": "You're all caught up!",
     "emptyNotificationDescription": "No new notifications for now"
   },
   "home": {
@@ -133,6 +132,7 @@ class CodegenLoader extends AssetLoader{
     "pay": "Pay",
     "accept": "Accept",
     "reject": "Reject",
+    "rejectMessage": "Reject Message",
     "chooseServiceOffer": "Choose a service offer to book",
     "chooseBookingTime": "Please choose a booking time",
     "appointmentNotFound": "Appointment not found",
@@ -474,7 +474,6 @@ static const Map<String,dynamic> _ar = {
     "termsAndConditions": "الشروط والاحكام",
     "checkForUpdate": "التحقق من التحديثات",
     "app_settings": "اعدادات التطبيق",
-    "emptyNotificationTitle": "أنت على اطلاع بكل شيء!",
     "emptyNotificationDescription": "لا توجد إشعارات جديدة حالياً"
   },
   "home": {
@@ -546,6 +545,7 @@ static const Map<String,dynamic> _ar = {
     "pay": "دفع",
     "accept": "قبول",
     "reject": "رفض",
+    "rejectMessage": "رسالة الرفض",
     "chooseServiceOffer": "اختر عرض خدمة للحجز",
     "chooseBookingTime": "يرجى اختيار وقت الحجز",
     "appointmentNotFound": "الموعد غير موجود",

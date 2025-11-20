@@ -116,6 +116,7 @@
     "pay": "دفع",
     "accept": "قبول",
     "reject": "رفض",
+    "rejectMessage": "رسالة الرفض",
     "chooseServiceOffer": "اختر عرض خدمة للحجز",
     "chooseBookingTime": "يرجى اختيار وقت الحجز",
     "appointmentNotFound": "الموعد غير موجود",

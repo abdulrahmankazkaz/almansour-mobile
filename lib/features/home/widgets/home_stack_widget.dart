@@ -26,7 +26,7 @@ class HomeStackWidget extends StatelessWidget {
 
       children: [
         Container(
-          height: MediaQuery.sizeOf(context).height*0.15,
+          height: MediaQuery.sizeOf(context).height*0.12,
           decoration: BoxDecoration(
               color: ColorManager.primaryColor,
               borderRadius: BorderRadius.circular(AppSizeR.s15)),
@@ -46,9 +46,9 @@ class HomeStackWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              SizedBox(height: AppSizeH.s20),
+              SizedBox(height: AppSizeH.s10),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: AppSizeW.s20),
+                margin: EdgeInsets.symmetric(horizontal: AppSizeW.s14),
                 // width: AppSizeW.s310,
                 child: ElevatedButton(
                     style: Theme.of(context)
@@ -67,7 +67,7 @@ class HomeStackWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const Spacer(),
-                        Text(buttonText.tr(),style: Theme.of(context).textTheme.labelLarge),
+                        Text(buttonText.tr(),style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700)),
                         const Spacer(),
                         Container(
                           padding: EdgeInsets.all(AppSizeW.s6),

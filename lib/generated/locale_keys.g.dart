@@ -46,7 +46,6 @@ abstract class  LocaleKeys {
   static const main_termsAndConditions = 'main.termsAndConditions';
   static const main_checkForUpdate = 'main.checkForUpdate';
   static const main_app_settings = 'main.app_settings';
-  static const main_emptyNotificationTitle = 'main.emptyNotificationTitle';
   static const main_emptyNotificationDescription = 'main.emptyNotificationDescription';
   static const main = 'main';
   static const home_services = 'home.services';
@@ -113,6 +112,7 @@ abstract class  LocaleKeys {
   static const onlineBooking_pay = 'onlineBooking.pay';
   static const onlineBooking_accept = 'onlineBooking.accept';
   static const onlineBooking_reject = 'onlineBooking.reject';
+  static const onlineBooking_rejectMessage = 'onlineBooking.rejectMessage';
   static const onlineBooking_chooseServiceOffer = 'onlineBooking.chooseServiceOffer';
   static const onlineBooking_chooseBookingTime = 'onlineBooking.chooseBookingTime';
   static const onlineBooking_appointmentNotFound = 'onlineBooking.appointmentNotFound';

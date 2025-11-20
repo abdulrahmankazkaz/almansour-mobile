@@ -40,6 +40,8 @@ mixin _$Appointment {
   Dealership get dealership => throw _privateConstructorUsedError;
   @JsonKey(name: 'image')
   String get image => throw _privateConstructorUsedError;
+  @JsonKey(name: 'reject_message')
+  String? get rejectMessage => throw _privateConstructorUsedError;
   @JsonKey(name: 'totals')
   OrderDetailsTotal get totals => throw _privateConstructorUsedError;
   @JsonKey(name: 'service_offer')
@@ -72,6 +74,7 @@ abstract class $AppointmentCopyWith<$Res> {
       @JsonKey(name: 'payment_method') BasicModel? paymentMethod,
       @JsonKey(name: 'dealership') Dealership dealership,
       @JsonKey(name: 'image') String image,
+      @JsonKey(name: 'reject_message') String? rejectMessage,
       @JsonKey(name: 'totals') OrderDetailsTotal totals,
       @JsonKey(name: 'service_offer') ServiceOffer? serviceOffer});
 
@@ -108,6 +111,7 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
     Object? paymentMethod = freezed,
     Object? dealership = null,
     Object? image = null,
+    Object? rejectMessage = freezed,
     Object? totals = null,
     Object? serviceOffer = freezed,
   }) {
@@ -152,6 +156,10 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      rejectMessage: freezed == rejectMessage
+          ? _value.rejectMessage
+          : rejectMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       totals: null == totals
           ? _value.totals
           : totals // ignore: cast_nullable_to_non_nullable
@@ -251,6 +259,7 @@ abstract class _$$AppointmentImplCopyWith<$Res>
       @JsonKey(name: 'payment_method') BasicModel? paymentMethod,
       @JsonKey(name: 'dealership') Dealership dealership,
       @JsonKey(name: 'image') String image,
+      @JsonKey(name: 'reject_message') String? rejectMessage,
       @JsonKey(name: 'totals') OrderDetailsTotal totals,
       @JsonKey(name: 'service_offer') ServiceOffer? serviceOffer});
 
@@ -291,6 +300,7 @@ class __$$AppointmentImplCopyWithImpl<$Res>
     Object? paymentMethod = freezed,
     Object? dealership = null,
     Object? image = null,
+    Object? rejectMessage = freezed,
     Object? totals = null,
     Object? serviceOffer = freezed,
   }) {
@@ -335,6 +345,10 @@ class __$$AppointmentImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      rejectMessage: freezed == rejectMessage
+          ? _value.rejectMessage
+          : rejectMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
       totals: null == totals
           ? _value.totals
           : totals // ignore: cast_nullable_to_non_nullable
@@ -361,6 +375,7 @@ class _$AppointmentImpl extends _Appointment {
       @JsonKey(name: 'payment_method') this.paymentMethod,
       @JsonKey(name: 'dealership') this.dealership = const Dealership(),
       @JsonKey(name: 'image') this.image = '',
+      @JsonKey(name: 'reject_message') this.rejectMessage = '',
       @JsonKey(name: 'totals') required this.totals,
       @JsonKey(name: 'service_offer') this.serviceOffer})
       : super._();
@@ -399,6 +414,9 @@ class _$AppointmentImpl extends _Appointment {
   @JsonKey(name: 'image')
   final String image;
   @override
+  @JsonKey(name: 'reject_message')
+  final String? rejectMessage;
+  @override
   @JsonKey(name: 'totals')
   final OrderDetailsTotal totals;
   @override
@@ -407,7 +425,7 @@ class _$AppointmentImpl extends _Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, date: $date, orderedDate: $orderedDate, updatedDate: $updatedDate, type: $type, status: $status, isRated: $isRated, paymentMethod: $paymentMethod, dealership: $dealership, image: $image, totals: $totals, serviceOffer: $serviceOffer)';
+    return 'Appointment(id: $id, date: $date, orderedDate: $orderedDate, updatedDate: $updatedDate, type: $type, status: $status, isRated: $isRated, paymentMethod: $paymentMethod, dealership: $dealership, image: $image, rejectMessage: $rejectMessage, totals: $totals, serviceOffer: $serviceOffer)';
   }
 
   @override
@@ -429,6 +447,8 @@ class _$AppointmentImpl extends _Appointment {
             (identical(other.dealership, dealership) ||
                 other.dealership == dealership) &&
             (identical(other.image, image) || other.image == image) &&
+            (identical(other.rejectMessage, rejectMessage) ||
+                other.rejectMessage == rejectMessage) &&
             (identical(other.totals, totals) || other.totals == totals) &&
             (identical(other.serviceOffer, serviceOffer) ||
                 other.serviceOffer == serviceOffer));
@@ -448,6 +468,7 @@ class _$AppointmentImpl extends _Appointment {
       paymentMethod,
       dealership,
       image,
+      rejectMessage,
       totals,
       serviceOffer);
 
@@ -479,6 +500,7 @@ abstract class _Appointment extends Appointment {
           @JsonKey(name: 'payment_method') final BasicModel? paymentMethod,
           @JsonKey(name: 'dealership') final Dealership dealership,
           @JsonKey(name: 'image') final String image,
+          @JsonKey(name: 'reject_message') final String? rejectMessage,
           @JsonKey(name: 'totals') required final OrderDetailsTotal totals,
           @JsonKey(name: 'service_offer') final ServiceOffer? serviceOffer}) =
       _$AppointmentImpl;
@@ -517,6 +539,9 @@ abstract class _Appointment extends Appointment {
   @override
   @JsonKey(name: 'image')
   String get image;
+  @override
+  @JsonKey(name: 'reject_message')
+  String? get rejectMessage;
   @override
   @JsonKey(name: 'totals')
   OrderDetailsTotal get totals;

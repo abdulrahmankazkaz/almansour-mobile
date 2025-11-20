@@ -74,7 +74,7 @@ class _PromotionDetailsViewState extends State<PromotionDetailsView> {
           padding: EdgeInsets.only(
               right: AppSizeW.s20,
               left: AppSizeW.s20,
-              top: MediaQuery.sizeOf(context).height * 0.13),
+              top: MediaQuery.sizeOf(context).height * 0.1),
           child: BlocBuilder<PromotionDetailsBloc, PromotionDetailsState>(
               builder: (context, state) {
             return state.maybeWhen(
@@ -88,7 +88,7 @@ class _PromotionDetailsViewState extends State<PromotionDetailsView> {
                               child: ImageWidget(
                                   width: MediaQuery.sizeOf(context).width,
                                   height:
-                                      MediaQuery.sizeOf(context).height * 0.2,
+                                      MediaQuery.sizeOf(context).height * 0.3,
                                   url: promotion.media.primaryImage[0],
                                   fit: BoxFit.fill),
                             ),
@@ -113,7 +113,7 @@ class _PromotionDetailsViewState extends State<PromotionDetailsView> {
                                           insetPadding: EdgeInsets.zero,
                                           surfaceTintColor: Colors.transparent,
                                           backgroundColor:
-                                              Colors.black.withOpacity(0.5),
+                                              Colors.black.withValues(alpha: 0.5),
                                           child: Stack(
                                             alignment: Alignment.topRight,
                                             children: [
@@ -126,7 +126,7 @@ class _PromotionDetailsViewState extends State<PromotionDetailsView> {
                                                   return PhotoViewGalleryPageOptions(
                                                       imageProvider:
                                                           NetworkImage(promotion.media.images[index]),
-                                                      minScale: 0.3,
+                                                      minScale: 0.1,
                                                       maxScale: 0.8);
                                                 },
                                                 itemCount: promotion.media.images.length,

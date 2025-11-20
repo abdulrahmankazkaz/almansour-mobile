@@ -10,7 +10,7 @@ part of 'geofencing_data_source.dart';
 
 class _GeofencingDatasource implements GeofencingDatasource {
   _GeofencingDatasource(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.mac-iq.net';
+    baseUrl ??= 'https://mac-dev.nano-idea.com';
   }
 
   final Dio _dio;
