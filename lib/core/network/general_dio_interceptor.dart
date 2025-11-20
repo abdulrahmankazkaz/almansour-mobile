@@ -78,10 +78,10 @@ class GeneralInterceptor extends Interceptor {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Lottie.asset(Assets.lottieUpdate,
-                              height: AppSizeH.s80, fit: BoxFit.fitHeight),
+                              height: AppSizeH.s70, fit: BoxFit.fitHeight),
                           SizedBox(height: AppSizeH.s10),
                           Text(LocaleKeys.newVersion.tr()),
-                          SizedBox(height: AppSizeH.s80),
+                          SizedBox(height: AppSizeH.s60),
                           ElevatedButton(
                               onPressed: () {
                                 if (Platform.isIOS) {
