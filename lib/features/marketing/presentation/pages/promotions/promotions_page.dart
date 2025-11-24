@@ -81,12 +81,12 @@ class PromotionListWidget extends StatelessWidget {
             },
             child: Container(
               width: MediaQuery.sizeOf(context).width,
-              height: MediaQuery.sizeOf(context).height * 0.12,
+              height: MediaQuery.sizeOf(context).height * 0.16,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(AppSizeR.s15),
                 boxShadow: [
                   BoxShadow(
-                      color: Theme.of(context).shadowColor.withOpacity(0.1),
+                      color: Theme.of(context).shadowColor.withValues(alpha: 0.1),
                       spreadRadius: 3,
                       blurRadius: 3
                   )
@@ -94,7 +94,7 @@ class PromotionListWidget extends StatelessWidget {
                 color: Theme.of(context).cardColor
               ),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                 if(promotions[index].media.primaryImage.isNotEmpty)
                 ClipRRect(
@@ -110,23 +110,19 @@ class PromotionListWidget extends StatelessWidget {
                       url: promotions[index].media.primaryImage[0],
                       fit: BoxFit.fill),
                 ),
-                    const Spacer(),
+                    // const Spacer(),
 
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppSizeW.s12, vertical: AppSizeH.s8),
                   child: SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.35,
+                    width: MediaQuery.sizeOf(context).width * 0.4,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(promotions[index].title,
                               style: Theme.of(context).textTheme.headlineSmall),
-                          // Flexible(
-                          //     child: Text(promotions[index].description,
-                          //         style:
-                          //             Theme.of(context).textTheme.bodyMedium))
                         ]),
                   ),
                 )

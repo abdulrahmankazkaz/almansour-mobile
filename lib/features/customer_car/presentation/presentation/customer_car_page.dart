@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/utils/helpers/helper.dart';
 import '../../../../core/utils/resources/resources.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -44,72 +45,87 @@ class _CustomerCarViewState extends State<CustomerCarView> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenContainer(
-      padding: EdgeInsets.only(
-          top: MediaQuery.sizeOf(context).height * 0.1,
-          bottom: AppSizeH.s20,
-          right: AppSizeW.s20,
-          left: AppSizeW.s20),
-      child: BlocBuilder<CustomerCarBloc, CustomerCarState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-              getSuccessfully: (car) {
-                if (car.status.id == 2) {
-                  return CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: Center(
-                            child: SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.15,
-                          child: ImageWidget(
-                            url: car.carDetails.carName.imageUrl,
-                            defaultImage: Assets.imagesAddCar,
-                            placeHolder: Assets.imagesAddCar,
-                            fit: BoxFit.fill,
-                          ),
-                        )),
-                      ),
-                      SliverToBoxAdapter(child: SizedBox(height: AppSizeH.s30)),
-                      SliverToBoxAdapter(
-                        child: Text(
-                            '${car.carDetails.brand.name} ${car.carDetails.carName.name} ${car.yearOfModel}',
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headlineLarge),
-                      ),
-                      SliverToBoxAdapter(child: SizedBox(height: AppSizeH.s10)),
-                      SliverToBoxAdapter(
-                        child: HomeStackWidget(
-                          icon: Assets.iconsCheckIcon,
-                          title: car.isFromMac
-                              ? LocaleKeys.customer_car_carWarranty
-                              : LocaleKeys.customer_car_carNotWarranty,
-                          buttonText: LocaleKeys.home_updateOdometer,
-                          onPressed: () =>
-                              context.push(RoutesPaths.odometer, extra: car.id),
+    return BlocListener<CustomerCarBloc, CustomerCarState>(
+      listener: (context, state) => state.maybeWhen(
+          failed: (errorMessage) => Helper.instance.messageHelper
+              .showErrorMessage(context: context, message: errorMessage),
+          orElse: () {
+            return;
+          }),
+      child: ScreenContainer(
+        padding: EdgeInsets.only(
+            top: MediaQuery.sizeOf(context).height * 0.1,
+            bottom: AppSizeH.s20,
+            right: AppSizeW.s20,
+            left: AppSizeW.s20),
+        child: BlocBuilder<CustomerCarBloc, CustomerCarState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+                getSuccessfully: (car) {
+                  if (car.status.id == 2) {
+                    return CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: Center(
+                              child: SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.15,
+                            child: ImageWidget(
+                              url: car.carDetails.carName.imageUrl,
+                              defaultImage: Assets.imagesAddCar,
+                              placeHolder: Assets.imagesAddCar,
+                              fit: BoxFit.fill,
+                            ),
+                          )),
                         ),
-                      ),
-                      SliverToBoxAdapter(child: SizedBox(height: AppSizeH.s30)),
-                      SliverToBoxAdapter(
-                          child: CarOdometerSection(
-                              odometer: car.odometer.toString(),
-                              carId: car.id)),
-                      SliverToBoxAdapter(child: SizedBox(height: AppSizeH.s30)),
-                      SliverToBoxAdapter(
-                          child:
-                              OilChangeReminderSection(odometer: car.odometer)),
-                    ],
-                  );
-                } else {
-                  return CarStatusWidget(statusId: car.status.id,rejectReason: car.rejectReason,);
-                }
-              },
-              mustAddCar: () => const AddCarWidget(),
-              failed: (errorMessage) => Center(child: Text(errorMessage)),
-              orElse: () {
-                return const SmallCircularIndicator();
-              });
-        },
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: AppSizeH.s30)),
+                        SliverToBoxAdapter(
+                          child: Text(
+                              '${car.carDetails.brand.name} ${car.carDetails.carName.name} ${car.yearOfModel}',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headlineLarge),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: AppSizeH.s10)),
+                        SliverToBoxAdapter(
+                          child: HomeStackWidget(
+                            icon: Assets.iconsCheckIcon,
+                            title: car.isFromMac
+                                ? LocaleKeys.customer_car_carWarranty
+                                : LocaleKeys.customer_car_carNotWarranty,
+                            buttonText: LocaleKeys.home_updateOdometer,
+                            onPressed: () => context.push(RoutesPaths.odometer,
+                                extra: car.id),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: AppSizeH.s30)),
+                        SliverToBoxAdapter(
+                            child: CarOdometerSection(
+                                odometer: car.odometer.toString(),
+                                carId: car.id)),
+                        SliverToBoxAdapter(
+                            child: SizedBox(height: AppSizeH.s30)),
+                        SliverToBoxAdapter(
+                            child: OilChangeReminderSection(
+                                odometer: car.odometer)),
+                      ],
+                    );
+                  } else {
+                    return CarStatusWidget(
+                      statusId: car.status.id,
+                      rejectReason: car.rejectReason,
+                    );
+                  }
+                },
+                mustAddCar: () => const AddCarWidget(),
+                failed: (errorMessage) => SizedBox(),
+                orElse: () {
+                  return const SmallCircularIndicator();
+                });
+          },
+        ),
       ),
     );
   }
@@ -119,7 +135,8 @@ class CarStatusWidget extends StatelessWidget {
   final int statusId;
   final String rejectReason;
 
-  const CarStatusWidget({super.key, required this.statusId,this.rejectReason=''});
+  const CarStatusWidget(
+      {super.key, required this.statusId, this.rejectReason = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -145,24 +162,24 @@ class CarStatusWidget extends StatelessWidget {
               : LocaleKeys.customer_car_carRejectedDescription.tr(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelMedium),
-      if(rejectReason.isNotEmpty && statusId ==3)
-        ...{SizedBox(height: AppSizeH.s14),
-          Text('\"$rejectReason\"', style: Theme
-              .of(context)
-              .textTheme
-              .headlineSmall, textAlign: TextAlign.center),
-          SizedBox(height: AppSizeH.s14),
-          Text(LocaleKeys.customer_car_pleaseTryAgain.tr(),style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center),
-        },
-    if (statusId != 1)
-        ...{
+      if (rejectReason.isNotEmpty && statusId == 3) ...{
+        SizedBox(height: AppSizeH.s14),
+        Text('\"$rejectReason\"',
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.center),
+        SizedBox(height: AppSizeH.s14),
+        Text(LocaleKeys.customer_car_pleaseTryAgain.tr(),
+            style: Theme.of(context).textTheme.labelMedium,
+            textAlign: TextAlign.center),
+      },
+      if (statusId != 1) ...{
         SizedBox(height: AppSizeH.s20),
-          ElevatedButton(
-              onPressed: () {
-                context.push(RoutesPaths.addCarRoute);
-              },
-              child: Text(LocaleKeys.customer_car_addYourCarAgain.tr()))
-        }
+        ElevatedButton(
+            onPressed: () {
+              context.push(RoutesPaths.addCarRoute);
+            },
+            child: Text(LocaleKeys.customer_car_addYourCarAgain.tr()))
+      }
     ]);
   }
 }

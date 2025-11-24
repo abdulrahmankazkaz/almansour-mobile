@@ -60,7 +60,8 @@ class GeneralInterceptor extends Interceptor {
             context: rootNavigatorKey.currentContext,
             message: LocaleKeys.messages_expiredSession.tr());
         rootNavigatorKey.currentContext!.go(RoutesPaths.loginRoute);
-      } else if (err.response?.data['code'] ==
+      }
+      else if (err.response?.data['code'] ==
           ResponseStatusCode.oldVersion.value) {
         LoggerService().logDebug(message: 'Please update the app');
         showDialog(
