@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mac_mobile/core/utils/helpers/logger_helper.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'firebase_messaging.dart';
 
 class LocaleNotificationService {
   LocaleNotificationService();
@@ -23,7 +26,13 @@ class LocaleNotificationService {
     const InitializationSettings settings = InitializationSettings(
         android: androidInitializationSettings, iOS: initializationSettingsDarwin);
 
-    await _localeNotificationService.initialize(settings);
+    await _localeNotificationService.initialize(settings,
+    onDidReceiveNotificationResponse: (details) {
+      if (details.payload != null) {
+        final data = jsonDecode(details.payload!);
+        NotificationService().handleNotificationTap(data);
+      }        },
+    );
 
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'channel_id', // ID should be the same as in `showNotification`
@@ -155,8 +164,10 @@ class LocaleNotificationService {
       {required int id,
       required String title,
       required String body,
-      String? image}) async {
+      String? image,
+      String? payload
+      }) async {
     await _localeNotificationService.show(
-        id, title, body, await _notificationDetails(image: image));
+        id, title, body, await _notificationDetails(image: image),payload:payload );
   }
 }

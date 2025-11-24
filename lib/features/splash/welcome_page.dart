@@ -39,33 +39,6 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.instance.getInitialMessage().then(
-          (remoteMessage) {
-        if (remoteMessage != null) {
-          switch (remoteMessage.data['type_id']) {
-          //todo replace with offer
-          // case '1':
-          //   rootNavigatorKey.currentContext?.push(RoutesPaths.news, extra: remoteMessage.data['model_id']);
-            case '2':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.promotionDetails, extra: remoteMessage.data['model_id']);
-            case '3':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.carDetailsRoute, extra: int.tryParse(remoteMessage.data['model_id']));
-            case '4':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.notification);
-            case '5':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.carRoute);
-            case '6':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.orderRoute, extra: 1);
-            case '7':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.orderRoute, extra: 0);
-            case '8':
-              rootNavigatorKey.currentContext?.push(RoutesPaths.orderRoute, extra: 3);
-            case '9':
-              Helper.instance.routerHelper.openLinkWithBrowser(remoteMessage.data['url']);
-          }
-        }
-      },
-    );
   }
 
   @override

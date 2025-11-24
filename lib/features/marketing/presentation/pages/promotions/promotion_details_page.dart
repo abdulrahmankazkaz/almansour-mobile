@@ -74,7 +74,7 @@ class _PromotionDetailsViewState extends State<PromotionDetailsView> {
           padding: EdgeInsets.only(
               right: AppSizeW.s20,
               left: AppSizeW.s20,
-              top: MediaQuery.sizeOf(context).height * 0.1),
+              top: MediaQuery.sizeOf(context).height * 0.12),
           child: BlocBuilder<PromotionDetailsBloc, PromotionDetailsState>(
               builder: (context, state) {
             return state.maybeWhen(

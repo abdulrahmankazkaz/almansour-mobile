@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -54,7 +56,6 @@ class NotificationService {
         String? token = await _messaging.getToken();
         await getIt<AppPreferences>().userPreferences.setFcmToken(token);
         LoggerService().logDebug(message: 'FCM Token: $token');
-        // print('FCM Token: $token');
         return; // Exit if successful
       } catch (e) {
         if (attempt < retries - 1) {
@@ -77,25 +78,13 @@ class NotificationService {
       if (apnsToken != null) {
         await _subscribeBasedOnLanguage(appLanguage);
 
-        await _messaging
-            .subscribeToTopic('notifications');
-            // .then((value) => print('Subscribed to notifications successfully'))
-            // .catchError((e) => print('error $e'));
-        await _messaging
-            .subscribeToTopic('t');
-            // .then((value) => print('Subscribed to t successfully'))
-            // .catchError((e) => print('error $e'));
+        await _messaging.subscribeToTopic('notifications');
+        await _messaging.subscribeToTopic('t');
       }
     } else {
       await _subscribeBasedOnLanguage(appLanguage);
-      await _messaging
-          .subscribeToTopic('notifications');
-        //   .then((value) => print('Subscribed to notifications successfully'))
-        //   .catchError((e) => print('error $e'));
-      await _messaging
-          .subscribeToTopic('t');
-        //   .then((value) => print('Subscribed to t successfully'))
-        //   .catchError((e) => print('error $e'));
+      await _messaging.subscribeToTopic('notifications');
+      await _messaging.subscribeToTopic('t');
     }
   }
 
@@ -121,7 +110,7 @@ class NotificationService {
         await subscribeToEnglishTopic();
         await unsubscribeToArabicTopic();
       }
-    //   print('Subscribed to topics successfully');
+      //   print('Subscribed to topics successfully');
       LoggerService().logDebug(message: 'Subscribed to topics successfully');
     } catch (e) {
       LoggerService().logCatchDebug(message: e.toString());
@@ -158,12 +147,17 @@ class NotificationService {
 
   Future<void> listenToNotification() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (Platform.isIOS && message.notification != null) {
+        // iOS will show it automatically in foreground
+        // print('Skipping local notification on iOS because system will show it');
+        return;
+      }
       LoggerService().logDebug(
           message:
               'Got a message whilst in the foreground! ${message.toMap()}');
-    //   print('Got a message whilst in the foreground! ${message.toMap()}');
+      // print('Got a message whilst in the foreground! ${message.toMap()}');
       if (message.data.isNotEmpty) {
-        print('Message contained data: ${message.data.toString()}');
+        // print('Message contained data: ${message.data.toString()}');
         switch (message.data['type_id']) {
           case '5':
             rootNavigatorKey.currentContext
@@ -183,53 +177,64 @@ class NotificationService {
                 .add(const OrderEvent.getOrders(true));
         }
         await localeNotificationService.showNotification(
-            id: 1,
-            title: message.data['title'],
-            body: message.data['body'],
-            image: message.data['image'] == '' ? null : message.data['image']);
+          id: 1,
+          title: message.data['title'],
+          body: message.data['body'],
+          image: message.data['image'] == '' ? null : message.data['image'],
+          payload: jsonEncode({
+            'type_id': message.data['type_id'],
+            'model_id': message.data['body_id']
+          }),
+        );
       }
-      // if (message.notification != null) {
-      //   print('Message also contained a notification: ${message.notification}');
-      //   LoggerService().logDebug(
-      //       message:
-      //           'Message also contained a notification: ${message.notification}');
-      //   await localeNotificationService.showNotification(
-      //       id: 1,
-      //       title: message.notification?.title ?? '',
-      //       body: message.notification?.body ?? '',
-      //       image: message.notification?.android?.imageUrl ??
-      //           message.notification?.apple?.imageUrl);
-      // }
     });
   }
 
   void listenToTapNotification() {
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      switch (event.data['type_id']) {
-        case '1':
-        // rootNavigatorKey.currentContext?.push(RoutesPaths.news, extra: event.data['model_id']);
-        case '2':
-          rootNavigatorKey.currentContext?.push(RoutesPaths.promotionDetails,
-              extra: event.data['model_id']);
-        case '3':
-          rootNavigatorKey.currentContext?.push(RoutesPaths.carDetailsRoute,
-              extra: int.tryParse(event.data['model_id']));
-        case '4':
-          rootNavigatorKey.currentContext?.push(RoutesPaths.notification);
-        case '5':
-          rootNavigatorKey.currentContext?.push(RoutesPaths.carRoute);
-        case '6':
-          rootNavigatorKey.currentContext
-              ?.push(RoutesPaths.orderRoute, extra: 2);
-        case '7':
-          rootNavigatorKey.currentContext
-              ?.push(RoutesPaths.orderRoute, extra: 1);
-        case '8':
-          rootNavigatorKey.currentContext
-              ?.push(RoutesPaths.orderRoute, extra: 0);
-        case '9':
-          Helper.instance.routerHelper.openLinkWithBrowser(event.data['url']);
-      }
+      handleNotificationTap(event.data);
     });
+  }
+
+  void handleNotificationTap(Map<String, dynamic> data) {
+    final typeId = data['type_id']?.toString();
+
+    // print('handleNotificationTap: typeId=$typeId, data=$data');
+
+    switch (typeId) {
+      case '2':
+        rootNavigatorKey.currentContext
+            ?.go(RoutesPaths.promotionDetails, extra: data['model_id']);
+        break;
+      case '3':
+        rootNavigatorKey.currentContext?.go(
+          RoutesPaths.carDetailsRoute,
+          extra: int.tryParse(data['model_id']),
+        );
+        break;
+      case '4':
+        rootNavigatorKey.currentContext?.go(RoutesPaths.notification);
+        break;
+      case '5':
+        rootNavigatorKey.currentContext?.go(RoutesPaths.carRoute);
+        break;
+      case '6':
+        rootNavigatorKey.currentContext?.go(RoutesPaths.orderRoute, extra: 1);
+        break;
+      case '7':
+        rootNavigatorKey.currentContext?.go(RoutesPaths.orderRoute, extra: 0);
+        break;
+      case '8':
+        rootNavigatorKey.currentContext?.go(RoutesPaths.orderRoute, extra: 3);
+        break;
+      case '9':
+        Helper.instance.routerHelper.openLinkWithBrowser(data['url']);
+        break;
+      case '10':
+        rootNavigatorKey.currentContext?.go(RoutesPaths.orderRoute, extra: 2);
+        break;
+      default:
+        // print('Unknown notification type_id: $typeId');
+    }
   }
 }
