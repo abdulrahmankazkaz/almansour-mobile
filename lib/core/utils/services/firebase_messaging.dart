@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mac_mobile/features/quick_service/presentation/bloc/quick_service_bloc/quick_service_bloc.dart';
 
 import '../../../app/dependency_injection.dart';
 import '../../../features/cart/presentation/bloc/order_bloc/order_bloc.dart';
@@ -175,6 +176,10 @@ class NotificationService {
             rootNavigatorKey.currentContext
                 ?.read<OrderBloc>()
                 .add(const OrderEvent.getOrders(true));
+          case '10':
+            rootNavigatorKey.currentContext
+                ?.read<QuickServiceBloc>()
+                .add(const QuickServiceEvent.get());
         }
         await localeNotificationService.showNotification(
           id: 1,

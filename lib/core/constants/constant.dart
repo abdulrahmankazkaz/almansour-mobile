@@ -1,7 +1,7 @@
 class Constants {
   //region urls
-  // static const String baseUrl = String.fromEnvironment('BASE_URL',defaultValue: 'https://api.mac-iq.net');
-  static const String baseUrl = String.fromEnvironment('BASE_URL',defaultValue: 'https://mac-dev.nano-idea.com');
+  static const String baseUrl = String.fromEnvironment('BASE_URL',defaultValue: 'https://api.mac-iq.net');
+  // static const String baseUrl = String.fromEnvironment('BASE_URL',defaultValue: 'https://mac-dev.nano-idea.com');
   static const String englishTermsUrl = 'https://privacy.mac-iq.net/';
   static const String arabicTermsUrl = 'https://privacy.mac-iq.net/ar.html';
   static const String refreshTokenUrl = '$baseUrl/api/customers/refresh-token';

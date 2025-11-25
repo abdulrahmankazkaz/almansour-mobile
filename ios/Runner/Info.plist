@@ -45,8 +45,10 @@
 	<string>Need to use camera</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Needed for debugging and connecting to the Dart VM service.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need to use location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We use your location to show nearby offers while you use the app.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We use your location to keep location-based features working even when the app is not open.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to use photo library</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

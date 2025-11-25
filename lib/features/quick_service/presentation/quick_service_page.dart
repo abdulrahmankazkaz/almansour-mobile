@@ -26,7 +26,6 @@ class QuickServiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => QuickServiceBloc()),
         BlocProvider(create: (_) => AvailableQuickServiceBloc()),
         BlocProvider(create: (_) => QuickServiceEnumBloc()),
         BlocProvider(create: (_) => QuickServiceFormCubit()),

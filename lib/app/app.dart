@@ -27,6 +27,7 @@ import '../features/online_booking/presentation/bloc/appointment_checkout_bloc/a
 import '../features/online_booking/presentation/bloc/appointment_details_bloc/appointment_details_bloc.dart';
 import '../features/online_booking/presentation/bloc/available_appointment_bloc/available_appointment_bloc.dart';
 import '../features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import '../features/quick_service/presentation/bloc/quick_service_bloc/quick_service_bloc.dart';
 import '../features/spare_parts/presentation/bloc/spare_parts_bloc.dart';
 import '../generated/locale_keys.g.dart';
 
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
                         BlocProvider(create: (_) => AppointmentBloc()),
                         BlocProvider(create: (_) => AvailableAppointmentBloc()),
                         BlocProvider(create: (_) => OrderBloc()),
+                        BlocProvider(create: (_) => QuickServiceBloc()),
                         BlocProvider(create: (_) => OrderDetailsBloc()),
                         BlocProvider(create: (_) => AppointmentDetailsBloc()),
                         BlocProvider(create: (_) => OdometerBloc()),
